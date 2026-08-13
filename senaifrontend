@@ -4,7 +4,7 @@ async function buscarDoBanco() {
     >>em java não precisa declarar o tipo de viravel<<
     -> CONST = uma "variável" que não pode mudar os valores dps ((ela vai receber os valores do localhost
     - AWAIT = bloqueia o código e aguarda a resposta q o java vai mandar pro fetch pra continuar
-    - FETCH (trazer/buscar) = vai ate o cosigo q tu colocou e pega a informação de la e traz
+    - FETCH (trazer/buscar) = vai ate o link q tu colocou e pega a informação de la e traz
     */
     const resposta = await fetch("http://localhost:8080/produtos");
 
