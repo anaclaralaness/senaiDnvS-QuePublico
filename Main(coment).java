@@ -1,4 +1,4 @@
-import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpServer; // Ferramenta para criar o Servidor Web.
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.google.gson.Gson;
@@ -66,5 +66,9 @@ public class ServidorApp {
 }
 
 class Produto {
+    String nome;
+}
+
+class Cliente {
     String nome;
 }
