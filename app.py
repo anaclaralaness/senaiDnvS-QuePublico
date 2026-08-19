@@ -2,7 +2,7 @@ import streamlit as st
 
 import database as db
 
-db.criartabela()
+db.criar_tabela()
 
 st.title("esse é um título")
 st.header ("esse é um cabeçalho")
@@ -24,5 +24,5 @@ if btn_form:
 
   conn.commit()
   conn.close()
-else:
+#else:
   #st.write(f"o seu nome é {nome}")
