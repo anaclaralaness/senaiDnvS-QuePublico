@@ -38,6 +38,5 @@ if btn_form: #"O botão 'enviar' foi clicado?" Se a resposta for Sim (True), o P
 
   conn.commit() #salva o que foi feito
   conn.close() #encerra a conexão
-#else:
-  #st.write(f"o seu nome é {nome}")
+
   st.success("Aluno cadastrado com sucesso!") #caixinha q mostra uma mensagem de sucesso pro usuario ficar feliz :)
