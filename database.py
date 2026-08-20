@@ -4,6 +4,9 @@ def conectar (): #cria a função conectar, então agora toda vez que chamar ela
   conn = sqlite3.connect("escola.db") #conn = variavel connect | ele guarda a ligação com o banco de dados | quando chamar conn, o python vai ate o arquivo escola.db e conecta "abre a porta" (se nao tiver escola.db, ele cria)
   #--DB = DataBase/Banco de Dados | 
   return conn #retorna o valor de conn, entao traz de volta a conexão com escola db
+
+
+#-----------------CREATE------------------
 def criar_tabela() : #cria a função criar_tabela
   conn = conectar() #chama a função conectar que acabou de criar, então faz tudo q tem dentro dela (se conectar com escola db)
   cursor = conn.cursor() #cria a variável cursor | ele vai pegar os seus comandos SQL (como criar tabelas, salvar alunos ou apagar dados) e executar lá dentro do arquivo.
@@ -34,3 +37,69 @@ def criar_tabela() : #cria a função criar_tabela
   conn.close() #Desconecta o Python do banco e encerra.
 
 #As três aspas (""") servem apenas para o Python aceitar um texto longo pulando várias linhas.
+#------------------------------------------------------------------------------------------------
+
+###essas partes abaixo vieram do rep. de lohan. obg lohan
+
+#-----------------READ------------------
+#decidi colocar duas funções: uma busca por id e outra por nome
+
+def buscar_aluno_id(ID): #cria a função buscar aluno por id | precisa de um parametro (id do aluno)
+
+    conn = conectar() #conecta em escola.db
+    cursor = conn.cursor() #vai executar as funções
+
+    cursor.execute( 
+        "SELECT * FROM alunos WHERE ID = ?", #SELECT * FROM alunos: Pega todas as colunas da tabela. | WHERE ID = ?: Filtra para buscar apenas os registros onde a coluna ID bate exatamente com a pesquisa
+        (ID,) #Passa a variável dentro de uma tupla para o lugar do ?.
+    )
+
+    alunos = cursor.fetchone() #guarda o aluno na variável "alunos" ou "None" se não achar ninguem
+
+    conn.close() #fecha a conexão
+    return alunos #retorna o resultado da variável alunos
+
+#-----------------------------------------
+
+def buscar_aluno_nome(nome): #cria a função buscar aluno com o parâmetro nome
+    conn = conectar() #conecta em escola.db
+    cursor = conn.cursor() #vai executar as funções
+
+
+    cursor.execute("SELECT * FROM alunos WHERE nome = ?", (nome,)) #SELECT * FROM alunos: Pega todas as colunas da tabela. | WHERE nome = ?: Filtra para buscar apenas os registros 
+  #onde a coluna nome bate exatamente com a pesquisa. | (nome,): Passa a variável dentro de uma tupla para o lugar do ?.
+    alunos = cursor.fetchall()  # coloca na variável alunos uma lista com todas as "Anas" achadas 
+
+    conn.close()  #fecha a conexão
+    return alunos #retorna o resultado da variável alunos
+
+#-----------------UPDATE------------------
+
+def editar_aluno(id, nome, idade, nota): #cria uma função que edita os parâmetros id, nome, idade, nota
+    conn = conectar() #conecta em escola.db
+    cursor = conn.cursor() #vai executar as funções
+
+    cursor.execute(" UPDATE alunos SET nome = ?, idade = ?, nota = ? WHERE ID = ?", (nome, idade, nota, id))
+  #UPDATE alunos: >> Avisa ao banco que você vai modificar alunos
+  #SET nome = ?, idade = ?, nota = ?: >> Especifica quais colunas receberão os novos valores digitados.
+  #WHERE ID = ? >> qual aluno vai ser editado de acordo com o id dele
+  # (nome, idade, nota, id) >> passa as mudanças dentro de tuplas | precisa estar na ordem dos "?"
+  #Se esquecer WHERE em um comando UPDATE, o banco vai alterar os dados de todos os alunos da tabela de uma vez só!
+
+    conn.commit() #salva as mudanças
+    conn.close() #fecha a conexão
+
+
+#-----------------DELETE------------------
+def deletar_aluno(id): #cria a função para deletar um aluno pedindo id
+    conn = conectar() #conecta em escola.db
+    cursor = conn.cursor() #vai executar as funções
+
+    cursor.execute("DELETE FROM alunos WHERE ID = ?", (id,))
+  #DELETE FROM alunos >> Comando SQL para remover registros da tabela.
+  #WHERE ID = ? >> pede o id | se não tiver "where" vai apagar a porra toda
+  #(id,) >> Passa a variável para o lugar do ?. >>A vírgula no final é o que força o Python a reconhecer isso como uma tupla de um elemento.<<
+
+    conn.commit()  #salva as mudanças
+    conn.close() #fecha a conexão
+
