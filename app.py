@@ -1,3 +1,6 @@
+#a partir daqui vai começar a ser feita a tela do site de acordo com o que foi feito no database.py, então o database.py deve ser feito primeiro
+
+
 import streamlit as st #importa biblioteca streamlit (é quem cria a tela do site) | as st >> um apelido pra não precisar digitar streamlit sempre: streamlit.title() >>>> st.title()
 
 import database as db #pega o arquivo database.py (que eu criei) e traz todas as funções dele | as db >> cria um apelido pra database
